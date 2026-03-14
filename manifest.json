@@ -1,0 +1,17 @@
+{
+  "name": "GAS Dokumenter Ruby",
+  "short_name": "GAS Dok",
+  "description": "Aplikasi Dokumentasi Ruby Indonesia",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F2C94C",
+  "icons": [
+    {
+      "src": "https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
