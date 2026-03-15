@@ -7,110 +7,76 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
   
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  
   <style>
     body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; }
     
-    /* BACKGROUND DENGAN LAYERING GEOMETRIS */
     #splash-screen {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: #F2C94C; /* Warna dasar kuning */
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; z-index: 9999;
-      overflow: hidden;
-      transition: opacity 0.8s ease, visibility 0.8s;
+      /* Background Layering Miring */
+      background: #F2C94C url('https://drive.google.com/thumbnail?id=139d2QGive0sNAbe0mQnj0jwxmElDQxrH&sz=w1200') no-repeat center center;
+      background-size: cover;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 9999; transition: opacity 0.5s ease;
     }
 
-    /* Layer Kotak 1 (Miring) */
-    #splash-screen::before {
-      content: "";
-      position: absolute;
-      width: 150%; height: 150%;
-      background: rgba(255, 255, 255, 0.1);
-      transform: rotate(25deg);
-      top: -20%;
-      z-index: 0;
+    .container { position: relative; width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+    /* Area Bulat Logo & Outline */
+    .logo-circle-area { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; }
+
+    /* Logo Ruby Bulat */
+    #main-logo { width: 90px; z-index: 2; opacity: 0; animation: fadeIn 0.3s ease forwards 0.1s; }
+
+    /* Outline Melingkar (Hanya di area bulat) */
+    .svg-outline { position: absolute; width: 120px; height: 120px; transform: rotate(-90deg); z-index: 3; }
+    .circle-path {
+      fill: none; stroke: #FFFFFF; stroke-width: 4; stroke-linecap: round;
+      stroke-dasharray: 380; stroke-dashoffset: 380;
+      animation: drawCircle 1s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.2s;
     }
 
-    /* Layer Kotak 2 (Lebih miring) */
-    #splash-screen::after {
-      content: "";
-      position: absolute;
-      width: 130%; height: 130%;
-      background: rgba(0, 0, 0, 0.03);
-      transform: rotate(-15deg);
-      bottom: -10%;
-      z-index: 0;
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes drawCircle { to { stroke-dashoffset: 0; } }
+
+    /* Teks Filosofis Bawah */
+    .footer-text {
+      position: absolute; bottom: 50px; width: 90%; text-align: center;
+      color: white; font-size: 10px; font-weight: 300; 
+      line-height: 1.8; letter-spacing: 0.8px; opacity: 0.9;
     }
 
-    .logo-wrapper { 
-      position: relative; 
-      width: 220px; height: 220px; 
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2; /* Di atas background miring */
-    }
-
-    #splash-logo { 
-      width: 100px; 
-      filter: drop-shadow(0 0 20px rgba(255,255,255,0.4));
-    }
-
-    .outline-svg {
-      position: absolute; top: 0; left: 0; width: 220px; height: 220px;
-      transform: rotate(-90deg);
-    }
-
-    .outline-circle {
-      fill: none;
-      stroke: #FFFFFF;
-      stroke-width: 6;
-      stroke-linecap: round;
-      stroke-dasharray: 630;
-      stroke-dashoffset: 630;
-      animation: drawOutline 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-      animation-delay: 0.5s;
-    }
-
-    @keyframes drawOutline {
-      to { stroke-dashoffset: 0; }
-    }
-
-    .splash-footer {
-      position: absolute; bottom: 50px; width: 85%; text-align: center;
-      color: white; font-size: 11px; font-weight: 400;
-      opacity: 0.95; line-height: 1.6; z-index: 2;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    }
-
-    iframe { border: none; width: 100%; height: 100%; display: block; background: white; }
-    .hidden { opacity: 0; visibility: hidden; }
+    iframe { border: none; width: 100%; height: 100%; display: block; }
+    .fade-out { opacity: 0; pointer-events: none; }
   </style>
 </head>
 <body>
 
   <div id="splash-screen">
-    <div class="logo-wrapper">
-      <svg class="outline-svg" viewBox="0 0 220 220">
-        <circle class="outline-circle" cx="110" cy="110" r="100" />
-      </svg>
-      <img id="splash-logo" src="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
+    <div class="container">
+      <div class="logo-circle-area">
+        <svg class="svg-outline" viewBox="0 0 120 120">
+          <circle class="circle-path" cx="60" cy="60" r="56" />
+        </svg>
+        <img id="main-logo" src="https://drive.google.com/thumbnail?id=1nxtbdq9brBCJwosXWLCxPYx5KWdO3Prg&sz=w500">
+      </div>
     </div>
     
-    <div class="splash-footer">
+    <div class="footer-text">
       Dibuat untuk mempermudah dan mempersingkat segalanya<br>
       agar bisa mencari dan menemukan tujuan hidup yang berarti
     </div>
   </div>
 
-  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="startApp()"></iframe>
+  <iframe id="gas-app" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="closeSplash()"></iframe>
 
   <script>
-    function startApp() {
+    function closeSplash() {
+      // Total animasi sekitar 1.2 - 1.5 detik
       setTimeout(() => {
-        document.getElementById('splash-screen').classList.add('hidden');
-      }, 3000); 
-    }
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+        document.getElementById('splash-screen').classList.add('fade-out');
+      }, 1500); 
     }
   </script>
 </body>
