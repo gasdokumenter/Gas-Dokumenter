@@ -1,283 +1,119 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<base target="_top">
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,
-initial-scale=1,
-maximum-scale=1,
-user-scalable=no,
-viewport-fit=cover">
-
-<title>GAS Dokumenter</title>
-
-<style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-html,body{
-width:100%;
-height:100%;
-overflow:hidden;
-background:#F2C94C;
-font-family:sans-serif;
-}
-
-
-/* SPLASH SCREEN */
-
-#splash-screen{
-position:fixed;
-top:0;
-left:0;
-
-width:100vw;
-height:100vh;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-
-background-color:#F2C94C;
-
-background-image:url("https://drive.google.com/uc?export=view&id=1Ib42zmpyOBi0o35hBHGf0lkJ7KhH1X4b=w2000");
-
-background-repeat:no-repeat;
-background-position:center;
-
-/* INI YANG MEMAKSA STRETCH */
-background-size:100vw 100vh;
-
-z-index:9999;
-}
-
-
-/* BRAND WRAPPER */
-
-.brand-wrapper{
-
-display:flex;
-align-items:center;
-gap:12px;
-
-margin-top:-30px;
-
-z-index:10;
-
-}
-
-
-/* LOGO CONTAINER */
-
-.logo-container{
-
-position:relative;
-
-width:66px;
-height:66px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-}
-
-
-/* LOGO */
-
-#hati-logo{
-width:54px;
-z-index:2;
-}
-
-
-/* SVG LOADER */
-
-.svg-loader{
-
-position:absolute;
-
-width:66px;
-height:66px;
-
-transform:rotate(-90deg);
-
-z-index:3;
-
-}
-
-
-.circle-draw{
-
-fill:none;
-stroke:#FFFFFF;
-stroke-width:3.2;
-stroke-linecap:round;
-
-stroke-dasharray:201;
-stroke-dashoffset:201;
-
-animation:draw 1.6s cubic-bezier(0.65,0,0.35,1) forwards;
-animation-delay:0.3s;
-
-}
-
-@keyframes draw{
-to{
-stroke-dashoffset:0;
-}
-}
-
-
-/* RUBY TEXT */
-
-#ruby-text{
-
-height:54px;
-object-fit:contain;
-
-}
-
-
-/* FOOTER */
-
-.footer-text{
-
-position:absolute;
-
-bottom:env(safe-area-inset-bottom,60px);
-
-width:85%;
-
-text-align:center;
-
-color:white;
-
-font-size:8px;
-
-line-height:1.5;
-
-opacity:.9;
-
-letter-spacing:.2px;
-
-}
-
-
-/* APP FRAME */
-
-#app-frame{
-
-position:fixed;
-
-inset:0;
-
-border:none;
-
-width:100%;
-height:100%;
-
-opacity:0;
-
-z-index:1;
-
-}
-
-
-/* TRANSITION */
-
-.visible{
-opacity:1 !important;
-transition:opacity .5s ease;
-}
-
-.hidden{
-opacity:0;
-visibility:hidden;
-transition:opacity .5s ease;
-}
-
-</style>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>GAS Dokumenter</title>
+  
+  <style>
+    * { box-sizing: border-box; }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; }
+    
+    #splash-screen {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      /* LINK BACKGROUND BARU - FORCE STRETCH */
+      background-image: url('https://drive.google.com/thumbnail?id=1Ib42zmpyOBi0o35hBHGf0lkJ7KhH1X4b&sz=w1500');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% 100% !important; /* Stretch penuh ke semua sudut */
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+
+    .brand-wrapper {
+      display: flex; align-items: center;
+      gap: 12px; z-index: 10; margin-top: -30px;
+    }
+
+    /* CONTAINER LOGO HATI - SPACING SUPER RAPAT (0.6:1) */
+    .logo-container {
+      position: relative;
+      width: 64px; height: 64px; 
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    #hati-logo {
+      width: 54px; /* Ukuran logo hati */
+      z-index: 2;
+    }
+
+    /* OUTLINE LINGKARAN - MEPET PARAH */
+    .svg-loader {
+      position: absolute;
+      width: 64px; height: 64px;
+      transform: rotate(-90deg);
+      z-index: 3;
+    }
+
+    .circle-draw {
+      fill: none;
+      stroke: #FFFFFF;
+      stroke-width: 3.2; 
+      stroke-linecap: round;
+      stroke-dasharray: 195; /* 2 * PI * 31 */
+      stroke-dashoffset: 195;
+      animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    /* TULISAN RUBY - UKURAN SAMA DENGAN LOGO HATI */
+    #ruby-text { 
+      height: 54px; 
+      object-fit: contain; 
+    }
+
+    /* COPYRIGHT TEXT - POSISI AMAN */
+    .footer-text {
+      position: absolute; 
+      bottom: 65px; 
+      width: 85%; 
+      text-align: center;
+      color: white; 
+      font-size: 8px; 
+      line-height: 1.5; 
+      opacity: 0.9;
+      font-family: sans-serif;
+      letter-spacing: 0.2px;
+    }
+
+    #app-frame { position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%; opacity: 0; z-index: 1; }
+    .visible { opacity: 1 !important; transition: opacity 0.5s ease; }
+    .hidden { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
+  </style>
 </head>
-
-
 <body>
 
+  <div id="splash-screen">
+    <div class="brand-wrapper">
+      <div class="logo-container">
+        <svg class="svg-loader" viewBox="0 0 64 64">
+          <circle class="circle-draw" cx="32" cy="32" r="31" />
+        </svg>
+        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
+      </div>
+      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500">
+    </div>
+    
+    <div class="footer-text">
+      Dibuat untuk mempermudah dan mempersingkat segalanya<br>
+      agar bisa mencari dan menemukan tujuan hidup yang berarti
+    </div>
+  </div>
 
-<!-- SPLASH -->
+  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="finishSplash()"></iframe>
 
-<div id="splash-screen">
-
-<div class="brand-wrapper">
-
-<div class="logo-container">
-
-<svg class="svg-loader" viewBox="0 0 66 66">
-<circle class="circle-draw" cx="33" cy="33" r="31.5"/>
-</svg>
-
-<img
-id="hati-logo"
-src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500"
->
-
-</div>
-
-<img
-id="ruby-text"
-src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500"
->
-
-</div>
-
-
-<div class="footer-text">
-
-Dibuat untuk mempermudah dan mempersingkat segalanya<br>
-agar bisa mencari dan menemukan tujuan hidup yang berarti
-
-</div>
-
-</div>
-
-
-
-<!-- APP -->
-
-<iframe
-id="app-frame"
-src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec"
-onload="finishSplash()"
-></iframe>
-
-
-
-<script>
-
-function finishSplash(){
-
-setTimeout(()=>{
-
-document.getElementById("app-frame").classList.add("visible")
-
-setTimeout(()=>{
-
-document.getElementById("splash-screen").classList.add("hidden")
-
-},120)
-
-},2300)
-
-}
-
-</script>
-
+  <script>
+    function finishSplash() {
+      setTimeout(() => {
+        document.getElementById('app-frame').classList.add('visible');
+        setTimeout(() => {
+          document.getElementById('splash-screen').classList.add('hidden');
+        }, 120);
+      }, 2300); 
+    }
+  </script>
 </body>
 </html>
