@@ -6,49 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>GAS Dokumenter</title>
   
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
-  
   <style>
     * { box-sizing: border-box; }
-    body, html { 
-      margin: 0; padding: 0; 
-      height: 100%; width: 100%; 
-      overflow: hidden; 
-      background-color: #F2C94C; 
-    }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; }
     
     #splash-screen {
-      position: fixed; top: 0; left: 0; 
-      width: 100%; height: 100%;
-      /* BACK TO COVER: Biar nutup semua sisi tanpa celah kuning di pinggir */
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      /* PAKSA STRETCH: 100% 100% tanpa ampun biar nutup semua browser */
       background: #F2C94C url('https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w1500') no-repeat center center;
-      background-size: cover; 
+      background-size: 100% 100% !important; 
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 9999;
     }
 
     .brand-wrapper {
       display: flex; align-items: center;
-      gap: 12px; z-index: 10; margin-top: -40px; /* Naikin dikit biar gak terlalu ke bawah */
+      gap: 12px; z-index: 10; margin-top: -30px;
     }
 
-    /* CONTAINER LOGO HATI - SPACING 1:1 */
+    /* CONTAINER LOGO HATI - SPACING 0.6:1 */
     .logo-container {
       position: relative;
-      width: 70px; height: 70px; /* Container lebih kecil biar mepet */
+      width: 66px; height: 66px; /* Dikecilkan biar makin mepet */
       display: flex; align-items: center; justify-content: center;
     }
 
     #hati-logo {
-      width: 52px; /* Logo hati */
+      width: 54px; /* Logo hati ditingkatkan ukurannya */
       z-index: 2;
     }
 
-    /* OUTLINE LINGKARAN - LEBIH TIPIS & MEPET 1:1 */
+    /* OUTLINE LINGKARAN - SUPER MEPET */
     .svg-loader {
       position: absolute;
-      width: 70px; height: 70px;
+      width: 66px; height: 66px;
       transform: rotate(-90deg);
       z-index: 3;
     }
@@ -56,37 +47,37 @@
     .circle-draw {
       fill: none;
       stroke: #FFFFFF;
-      stroke-width: 3.5; /* Garis lebih tipis sesuai request */
+      stroke-width: 3.2; /* Outline tipis sesuai request */
       stroke-linecap: round;
-      stroke-dasharray: 207; /* 2 * PI * 33 */
-      stroke-dashoffset: 207;
+      stroke-dasharray: 201; /* 2 * PI * 32 */
+      stroke-dashoffset: 201;
       animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
       animation-delay: 0.3s;
     }
 
     @keyframes draw { to { stroke-dashoffset: 0; } }
 
-    #ruby-text { height: 36px; object-fit: contain; }
+    /* TULISAN RUBY - UKURAN SAMA DENGAN LOGO */
+    #ruby-text { 
+      height: 54px; /* UKURAN SAMA DENGAN LOGO HATI (1:1) */
+      object-fit: contain; 
+    }
 
-    /* COPYRIGHT TEXT - POSISI AMAN BIAR GAK KEPOTONG */
+    /* COPYRIGHT TEXT - POSISI AMAN */
     .footer-text {
       position: absolute; 
-      bottom: 80px; /* DINAIKKAN: Biar gak kena navigation bar HP */
-      width: 80%; 
+      bottom: 60px; /* Diatur biar gak kepotong navigasi bar */
+      width: 85%; 
       text-align: center;
       color: white; 
-      font-size: 8.5px; 
+      font-size: 8px; 
       line-height: 1.5; 
       opacity: 0.9;
       font-family: sans-serif;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
     }
 
-    #app-frame {
-      position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%;
-      opacity: 0; z-index: 1;
-    }
-
+    #app-frame { position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%; opacity: 0; z-index: 1; }
     .visible { opacity: 1 !important; transition: opacity 0.5s ease; }
     .hidden { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
   </style>
@@ -96,8 +87,8 @@
   <div id="splash-screen">
     <div class="brand-wrapper">
       <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 70 70">
-          <circle class="circle-draw" cx="35" cy="35" r="33" />
+        <svg class="svg-loader" viewBox="0 0 66 66">
+          <circle class="circle-draw" cx="33" cy="33" r="31.5" />
         </svg>
         <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
       </div>
@@ -105,7 +96,8 @@
     </div>
     
     <div class="footer-text">
-      Dibuat untuk mempermudah dan mempersingkat segalanya agar bisa mencari dan menemukan tujuan hidup yang berarti
+      Dibuat untuk mempermudah dan mempersingkat segalanya<br>
+      agar bisa mencari dan menemukan tujuan hidup yang berarti
     </div>
   </div>
 
