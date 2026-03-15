@@ -7,130 +7,114 @@
   <title>GAS Dokumenter</title>
   
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
+  <link rel="icon" href="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
   
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="GAS Dok">
-  <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
-
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: sans-serif; }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; background-color: #F2C94C; }
     
-    /* BACKGROUND PAKAI ASET PNG LO (TUMPENG DIAMOND) */
+    /* BACKGROUND SVG DARI LINK DRIVE LO */
     #splash-screen {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      /* Pakai link Drive untuk Asset 6.png */
-      background: #F2C94C url('https://drive.google.com/thumbnail?id=1N80U06Yn-l1k55S-V_Xn-Z_oN800-441&sz=w1000') no-repeat center center;
-      background-size: cover; /* Biar penuh di semua layar HP */
+      background: #F2C94C url('https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w1300') no-repeat center center;
+      background-size: cover;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      z-index: 9999; overflow: hidden;
-      transition: opacity 0.8s ease, visibility 0.8s;
+      z-index: 9999;
     }
 
-    .container {
+    /* WRAPPER UTAMA (LOGO + TULISAN) */
+    .brand-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px; /* Jarak antara logo hati dan tulisan Ruby */
+      z-index: 10;
+      margin-top: -30px;
+    }
+
+    /* CONTAINER KHUSUS LOGO HATI (YANG DILINGKARI) */
+    .logo-container {
       position: relative;
-      width: 250px; height: 250px; /* Ukuran container diperbesar */
+      width: 100px; height: 100px;
       display: flex; align-items: center; justify-content: center;
-      margin-top: -50px; /* Menyesuaikan posisi logo agar pas di tengah diamond */
     }
 
-    /* LOGO DASAR KOTAK KUNING + HATI (Direct Link) */
-    #logo-dasar {
-      width: 150px; height: 150px; /* Sesuai dengan gambar tumpeng lo */
-      z-index: 1; /* Di bawah SVG */
+    #hati-logo {
+      width: 55px; /* Ukuran logo hati */
+      z-index: 2;
     }
 
-    /* SVG GARIS OUTLINE (Muter di luar kotak logo kuning) */
-    .svg-wrapper {
-      position: absolute; top: 0; left: 0;
-      width: 250px; height: 250px;
-      transform: rotate(-90deg); /* Mulai dari atas */
-      z-index: 2; /* Di atas logo */
+    /* SVG GARIS PROGRESIF (HANYA UNTUK LOGO HATI) */
+    .svg-loader {
+      position: absolute;
+      width: 100px; height: 100px;
+      transform: rotate(-90deg);
+      z-index: 3;
     }
 
-    .outline-circle {
+    .circle-draw {
       fill: none;
-      stroke: #FFFFFF; /* Garis putih sesuai video */
-      stroke-width: 6; /* Sedikit tebal agar tegas */
+      stroke: #FFFFFF;
+      stroke-width: 4;
       stroke-linecap: round;
-      stroke-dasharray: 630; /* Keliling lingkaran r=100 */
-      stroke-dashoffset: 630; /* Awal kosong */
-      animation: drawOutline 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-      animation-delay: 0.5s; /* Jeda sedikit */
+      stroke-dasharray: 283; /* 2 * PI * 45 */
+      stroke-dashoffset: 283;
+      animation: draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      animation-delay: 0.5s;
     }
 
-    @keyframes drawOutline {
-      to { stroke-dashoffset: 0; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    /* TULISAN RUBY DI SAMPING LOGO */
+    #ruby-text {
+      height: 45px; /* Menyesuaikan tinggi agar sejajar logo */
+      object-fit: contain;
     }
 
-    /* PERBAIKAN TEKS FILOSOFIS (Ukuran & Spacing) */
+    /* FOOTER TEKS KECILLLL BANGET ALA DANA/GOPAY */
     .footer-text {
-      position: absolute; 
-      bottom: 60px; /* Posisi diangkat sedikit agar pas */
-      width: 85%; 
-      text-align: center;
-      color: white; 
-      font-size: 11px; /* Ukuran font diperkecil sesuai screenshot */
-      font-weight: 400; /* Tipis */
-      line-height: 1.6; /* Spacing antar baris */
-      letter-spacing: 0.5px; /* Sedikit spasi antar huruf */
-      opacity: 0.9; 
-      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: absolute; bottom: 40px; width: 90%; text-align: center;
+      color: white; font-size: 9px; /* Super kecil */
+      line-height: 1.4; opacity: 0.8; letter-spacing: 0.3px;
     }
 
-    /* IFRAME FULLSCREEN */
     #app-frame {
-      position: fixed; top: 0; left: 0;
-      border: none; width: 100%; height: 100%;
-      display: block; opacity: 0;
-      transition: opacity 0.8s ease;
-      z-index: 1; /* Di bawah splash screen */
+      position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%;
+      opacity: 0; z-index: 1;
     }
 
-    .show-app { opacity: 1 !important; }
-    .hide-splash { opacity: 0; visibility: hidden; }
+    .visible { opacity: 1 !important; transition: opacity 0.6s ease; }
+    .hidden { opacity: 0; visibility: hidden; transition: opacity 0.6s ease; }
   </style>
 </head>
 <body>
 
   <div id="splash-screen">
-    <div class="container">
-      <svg class="svg-wrapper" viewBox="0 0 250 250">
-        <circle class="outline-circle" cx="125" cy="125" r="100" />
-      </svg>
-      <img id="logo-dasar" src="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500" alt="Ruby Logo">
+    <div class="brand-wrapper">
+      <div class="logo-container">
+        <svg class="svg-loader" viewBox="0 0 100 100">
+          <circle class="circle-draw" cx="50" cy="50" r="45" />
+        </svg>
+        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500" alt="Hati">
+      </div>
+      
+      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500" alt="Ruby">
     </div>
     
     <div class="footer-text">
-      Dibuat untuk mempermudah dan mempersingkat segalanya<br>
-      agar bisa mencari dan menemukan tujuan hidup yang berarti
+      Dibuat untuk mempermudah dan mempersingkat segalanya agar bisa mencari dan menemukan tujuan hidup yang berarti
     </div>
   </div>
 
-  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="startTransition()"></iframe>
+  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbyR9mCWzwPZyBAnv93OZkQy-_DU2BeI1EIvNFQ9NLXVQeydGxEeI3fGQzqgFIAiTlaW_Q/exec" onload="finishSplash()"></iframe>
 
   <script>
-    // FUNGSI SAKTI TRANSISI TANPA Kedip
-    function startTransition() {
-      // Tunggu animasi outline selesai (total 0.5s + 2s = 2.5s)
+    function finishSplash() {
       setTimeout(() => {
-        // 1. Munculkan iframe pelan-pelan
-        const frame = document.getElementById('app-frame');
-        frame.classList.add('show-app');
-        
-        // 2. Hilangkan splash screen
+        document.getElementById('app-frame').classList.add('visible');
         setTimeout(() => {
-          const splash = document.getElementById('splash-screen');
-          splash.classList.add('hide-splash');
-        }, 100);
-
+          document.getElementById('splash-screen').classList.add('hidden');
+        }, 150);
       }, 2500); 
     }
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
   </script>
-</head>
+</body>
 </html>
