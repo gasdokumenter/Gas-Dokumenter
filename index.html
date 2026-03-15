@@ -10,7 +10,6 @@
   <link rel="icon" href="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
   
   <style>
-    /* RESET TOTAL & FORCE FULLSCREEN */
     * { box-sizing: border-box; }
     body, html { 
       margin: 0; padding: 0; 
@@ -21,37 +20,35 @@
     
     #splash-screen {
       position: fixed; top: 0; left: 0; 
-      width: 100vw; height: 100vh;
-      /* STRETCHING BACKGROUND SAMPAI PENUH */
-      background-image: url('https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w1500');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 100% 100%; /* Ini kuncinya biar stretch penuh menyesuaikan browser */
+      width: 100%; height: 100%;
+      /* BACK TO COVER: Biar nutup semua sisi tanpa celah kuning di pinggir */
+      background: #F2C94C url('https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w1500') no-repeat center center;
+      background-size: cover; 
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 9999;
     }
 
     .brand-wrapper {
       display: flex; align-items: center;
-      gap: 15px; z-index: 10; margin-top: -10px;
+      gap: 12px; z-index: 10; margin-top: -40px; /* Naikin dikit biar gak terlalu ke bawah */
     }
 
-    /* CONTAINER LOGO HATI */
+    /* CONTAINER LOGO HATI - SPACING 1:1 */
     .logo-container {
       position: relative;
-      width: 80px; height: 80px; /* Ukuran container */
+      width: 70px; height: 70px; /* Container lebih kecil biar mepet */
       display: flex; align-items: center; justify-content: center;
     }
 
     #hati-logo {
-      width: 48px; /* Logo diperkecil dikit sesuai request */
+      width: 52px; /* Logo hati */
       z-index: 2;
     }
 
-    /* SVG OUTLINE: LEBIH TIPIS & SPACING DIPERBESAR */
+    /* OUTLINE LINGKARAN - LEBIH TIPIS & MEPET 1:1 */
     .svg-loader {
       position: absolute;
-      width: 80px; height: 80px;
+      width: 70px; height: 70px;
       transform: rotate(-90deg);
       z-index: 3;
     }
@@ -59,34 +56,30 @@
     .circle-draw {
       fill: none;
       stroke: #FFFFFF;
-      stroke-width: 4.5; /* Outline diperkecil (ditipisin) dikit */
+      stroke-width: 3.5; /* Garis lebih tipis sesuai request */
       stroke-linecap: round;
-      stroke-dasharray: 232; /* 2 * PI * 37 */
-      stroke-dashoffset: 232;
+      stroke-dasharray: 207; /* 2 * PI * 33 */
+      stroke-dashoffset: 207;
       animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
       animation-delay: 0.3s;
     }
 
     @keyframes draw { to { stroke-dashoffset: 0; } }
 
-    #ruby-text { 
-      height: 38px; /* Menyesuaikan Ruby Text */
-      object-fit: contain; 
-    }
+    #ruby-text { height: 36px; object-fit: contain; }
 
-    /* COPYRIGHT TEXT DI BAWAH */
+    /* COPYRIGHT TEXT - POSISI AMAN BIAR GAK KEPOTONG */
     .footer-text {
       position: absolute; 
-      bottom: 45px; /* Jarak dari bawah */
-      width: 85%; 
+      bottom: 80px; /* DINAIKKAN: Biar gak kena navigation bar HP */
+      width: 80%; 
       text-align: center;
       color: white; 
       font-size: 8.5px; 
       line-height: 1.5; 
-      opacity: 0.85;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      opacity: 0.9;
+      font-family: sans-serif;
       letter-spacing: 0.3px;
-      z-index: 10;
     }
 
     #app-frame {
@@ -103,17 +96,16 @@
   <div id="splash-screen">
     <div class="brand-wrapper">
       <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 80 80">
-          <circle class="circle-draw" cx="40" cy="40" r="37" />
+        <svg class="svg-loader" viewBox="0 0 70 70">
+          <circle class="circle-draw" cx="35" cy="35" r="33" />
         </svg>
-        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500" alt="Hati">
+        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
       </div>
-      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500" alt="Ruby Text">
+      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500">
     </div>
     
     <div class="footer-text">
-      Dibuat untuk mempermudah dan mempersingkat segalanya<br>
-      agar bisa mencari dan menemukan tujuan hidup yang berarti
+      Dibuat untuk mempermudah dan mempersingkat segalanya agar bisa mencari dan menemukan tujuan hidup yang berarti
     </div>
   </div>
 
