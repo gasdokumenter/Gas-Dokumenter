@@ -33,12 +33,12 @@ font-family:sans-serif;
 /* SPLASH SCREEN */
 
 #splash-screen{
-
 position:fixed;
-inset:0;
+top:0;
+left:0;
 
 width:100vw;
-height:100dvh;
+height:100vh;
 
 display:flex;
 flex-direction:column;
@@ -49,12 +49,13 @@ background-color:#F2C94C;
 
 background-image:url("https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w2000");
 
-background-position:center;
 background-repeat:no-repeat;
-background-size:cover;
+background-position:center;
+
+/* INI YANG MEMAKSA STRETCH */
+background-size:100vw 100vh;
 
 z-index:9999;
-
 }
 
 
