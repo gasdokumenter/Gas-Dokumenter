@@ -10,42 +10,39 @@
   <link rel="icon" href="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
   
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; background-color: #F2C94C; }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; }
     
-    /* BACKGROUND SVG DARI LINK DRIVE LO */
     #splash-screen {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: #F2C94C url('https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w1300') no-repeat center center;
-      background-size: cover;
+      position: fixed; top: 0; left: 0; 
+      width: 100vw; height: 100vh; /* Paksa Full Screen */
+      /* Link Background SVG lo */
+      background: #F2C94C url('https://drive.google.com/thumbnail?id=1EmFrWwPhnEeD40LRnBzm9cWMMRIQrrT8&sz=w1500') no-repeat center center;
+      background-size: cover; /* Background nutup semua tanpa celah */
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 9999;
     }
 
-    /* WRAPPER UTAMA (LOGO + TULISAN) */
     .brand-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 15px; /* Jarak antara logo hati dan tulisan Ruby */
-      z-index: 10;
-      margin-top: -30px;
+      display: flex; align-items: center;
+      gap: 12px; z-index: 10; margin-top: -20px;
     }
 
-    /* CONTAINER KHUSUS LOGO HATI (YANG DILINGKARI) */
+    /* CONTAINER LOGO HATI (DI-MEPET-IN) */
     .logo-container {
       position: relative;
-      width: 100px; height: 100px;
+      width: 75px; height: 75px; /* Perkecil container biar lingkaran mepet */
       display: flex; align-items: center; justify-content: center;
     }
 
     #hati-logo {
-      width: 55px; /* Ukuran logo hati */
+      width: 58px; /* Ukuran logo hati */
       z-index: 2;
     }
 
-    /* SVG GARIS PROGRESIF (HANYA UNTUK LOGO HATI) */
+    /* SVG GARIS TEBAL & MEPET */
     .svg-loader {
       position: absolute;
-      width: 100px; height: 100px;
+      width: 75px; height: 75px;
       transform: rotate(-90deg);
       z-index: 3;
     }
@@ -53,27 +50,23 @@
     .circle-draw {
       fill: none;
       stroke: #FFFFFF;
-      stroke-width: 4;
+      stroke-width: 8; /* Lingkaran dibuat LEBIH TEBAL */
       stroke-linecap: round;
-      stroke-dasharray: 283; /* 2 * PI * 45 */
-      stroke-dashoffset: 283;
-      animation: draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-      animation-delay: 0.5s;
+      stroke-dasharray: 214; /* 2 * PI * 34 */
+      stroke-dashoffset: 214;
+      animation: draw 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      animation-delay: 0.3s;
     }
 
     @keyframes draw { to { stroke-dashoffset: 0; } }
 
-    /* TULISAN RUBY DI SAMPING LOGO */
-    #ruby-text {
-      height: 45px; /* Menyesuaikan tinggi agar sejajar logo */
-      object-fit: contain;
-    }
+    #ruby-text { height: 42px; object-fit: contain; }
 
-    /* FOOTER TEKS KECILLLL BANGET ALA DANA/GOPAY */
+    /* FOOTER TEKS SUPER KECIL */
     .footer-text {
-      position: absolute; bottom: 40px; width: 90%; text-align: center;
-      color: white; font-size: 9px; /* Super kecil */
-      line-height: 1.4; opacity: 0.8; letter-spacing: 0.3px;
+      position: absolute; bottom: 35px; width: 80%; text-align: center;
+      color: white; font-size: 8.5px; line-height: 1.4; opacity: 0.8;
+      font-family: sans-serif; letter-spacing: 0.2px;
     }
 
     #app-frame {
@@ -81,8 +74,8 @@
       opacity: 0; z-index: 1;
     }
 
-    .visible { opacity: 1 !important; transition: opacity 0.6s ease; }
-    .hidden { opacity: 0; visibility: hidden; transition: opacity 0.6s ease; }
+    .visible { opacity: 1 !important; transition: opacity 0.5s ease; }
+    .hidden { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
   </style>
 </head>
 <body>
@@ -90,13 +83,12 @@
   <div id="splash-screen">
     <div class="brand-wrapper">
       <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 100 100">
-          <circle class="circle-draw" cx="50" cy="50" r="45" />
+        <svg class="svg-loader" viewBox="0 0 75 75">
+          <circle class="circle-draw" cx="37.5" cy="37.5" r="34" />
         </svg>
-        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500" alt="Hati">
+        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
       </div>
-      
-      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500" alt="Ruby">
+      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500">
     </div>
     
     <div class="footer-text">
@@ -104,7 +96,7 @@
     </div>
   </div>
 
-  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbyR9mCWzwPZyBAnv93OZkQy-_DU2BeI1EIvNFQ9NLXVQeydGxEeI3fGQzqgFIAiTlaW_Q/exec" onload="finishSplash()"></iframe>
+  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="finishSplash()"></iframe>
 
   <script>
     function finishSplash() {
@@ -112,8 +104,8 @@
         document.getElementById('app-frame').classList.add('visible');
         setTimeout(() => {
           document.getElementById('splash-screen').classList.add('hidden');
-        }, 150);
-      }, 2500); 
+        }, 100);
+      }, 2200); 
     }
   </script>
 </body>
