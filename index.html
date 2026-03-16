@@ -1,164 +1,109 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>GAS Dokumenter V3</title>
+  <title>GAS Dokumenter</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
+
   <style>
-    * { box-sizing: border-box; }
-    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; font-family: sans-serif; }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: sans-serif; background-color: #F2C94C; }
     
-    /* Splash Screen */
+    /* BACKGROUND DARI ASET PNG LO */
     #splash-screen {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background-image: url('https://drive.google.com/thumbnail?id=1Ib42zmpyOBi0o35hBHGf0lkJ7KhH1X4b&sz=w1500');
-      background-size: 100% 100% !important; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      /* Pakai link thumbnail Drive Asset 6 lo */
+      background: #F2C94C url('https://drive.google.com/thumbnail?id=1_0xY_XyM_H_X_P_X_X_X_X_X_X_X_X&sz=w1000') no-repeat center center;
+      background-size: cover;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s;
     }
-    .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-top: -30px; }
-    .logo-container { position: relative; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
-    #hati-logo { width: 54px; z-index: 2; }
-    .svg-loader { position: absolute; width: 64px; height: 64px; transform: rotate(-90deg); z-index: 3; }
-    .circle-draw { fill: none; stroke: #FFFFFF; stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 195; stroke-dashoffset: 195; animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards; animation-delay: 0.3s; }
+
+    /* CONTAINER LOGO & SVG */
+    .logo-container {
+      position: relative;
+      width: 280px; height: 280px; /* Diperbesar agar lingkaran tidak memotong logo */
+      display: flex; align-items: center; justify-content: center;
+      margin-top: -40px;
+    }
+
+    /* LOGO DASAR KOTAK KUNING + HATI */
+    #logo-dasar {
+      width: 140px; height: 140px; /* Ukuran proporsional sesuai tumpeng diamond lo */
+      z-index: 2;
+    }
+
+    /* SVG OUTLINE (Muter di LUAR kotak logo) */
+    .svg-loader {
+      position: absolute;
+      width: 240px; height: 240px; /* Lebih besar dari logo agar melingkar di luar */
+      transform: rotate(-90deg);
+      z-index: 3;
+    }
+
+    .circle-draw {
+      fill: none;
+      stroke: #FFFFFF;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 690; /* Keliling lingkaran r=110 */
+      stroke-dashoffset: 690;
+      animation: draw 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      animation-delay: 0.5s;
+    }
+
     @keyframes draw { to { stroke-dashoffset: 0; } }
-    #ruby-text { height: 54px; object-fit: contain; }
 
-    /* Profile UI */
-    .profile-badge {
-      position: fixed; top: 15px; right: 15px; width: 38px; height: 38px;
-      border-radius: 50%; border: 2px solid #fff; cursor: pointer; z-index: 10000;
-      background-size: cover; background-position: center; background-color: #F2C94C; display: none;
+    /* TEKS FILOSOFIS SESUAI SCREENSHOT */
+    .footer-text {
+      position: absolute; bottom: 80px; width: 80%; text-align: center;
+      color: white; font-size: 11px; line-height: 1.6; letter-spacing: 0.5px;
+      opacity: 0.95; text-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    #profile-overlay {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 20000;
-    }
-    #profile-modal {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: white; width: 85%; max-width: 300px; border-radius: 24px; padding: 25px; text-align: center;
-    }
-    .modal-photo { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #F2C94C; margin-bottom: 15px; }
-    .btn-switch { background: #F2C94C; color: white; border: none; padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; margin-bottom: 10px; cursor: pointer; }
-    .btn-logout { background: #f0f0f0; color: #666; border: none; padding: 10px; width: 100%; border-radius: 12px; cursor: pointer; }
 
-    #app-frame { position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%; opacity: 0; z-index: 1; }
-    .visible { opacity: 1 !important; transition: opacity 0.5s ease; }
-    .hidden { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
-    #queue-status { position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.8); color: white; padding: 8px 15px; border-radius: 20px; font-size: 11px; z-index: 5000; display: none; font-weight: bold; }
+    #app-frame {
+      position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%;
+      opacity: 0; transition: opacity 0.8s ease; z-index: 1;
+    }
+
+    .visible { opacity: 1 !important; }
+    .hidden { opacity: 0; visibility: hidden; }
   </style>
 </head>
 <body>
 
   <div id="splash-screen">
-    <div class="brand-wrapper">
-      <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 64 64"><circle class="circle-draw" cx="32" cy="32" r="31" /></svg>
-        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
-      </div>
-      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500">
+    <div class="logo-container">
+      <svg class="svg-loader" viewBox="0 0 240 240">
+        <circle class="circle-draw" cx="120" cy="120" r="110" />
+      </svg>
+      <img id="logo-dasar" src="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
+    </div>
+    
+    <div class="footer-text">
+      Dibuat untuk mempermudah dan mempersingkat segalanya<br>
+      agar bisa mencari dan menemukan tujuan hidup yang berarti
     </div>
   </div>
 
-  <div class="profile-badge" id="user-badge" onclick="toggleProfile(true)"></div>
-  <div id="profile-overlay" onclick="toggleProfile(false)">
-    <div id="profile-modal" onclick="event.stopPropagation()">
-      <img src="" id="modal-img" class="modal-photo">
-      <div id="modal-name" style="font-weight: 800; font-size: 18px; color: #333;">...</div>
-      <div id="modal-email" style="font-size: 12px; color: #888; margin-bottom: 20px;">...</div>
-      <button class="btn-switch" onclick="switchAccount()">Ganti Akun</button>
-      <button class="btn-logout" onclick="logout()">Logout</button>
-    </div>
-  </div>
-
-  <div id="queue-status">Memproses...</div>
-
-  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwIfiJG1ZZK3A_Ljt37WRD3CZ1YT_SKKoIJMauoSjD5cBUcdV2kzFpGeYBujIIiyhD_sw/exec" onload="finishSplash()"></iframe>
+  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="initApp()"></iframe>
 
   <script>
-    let uploadQueue = [];
-    let isUploading = false;
-
-    function finishSplash() {
+    function initApp() {
       setTimeout(() => {
         document.getElementById('app-frame').classList.add('visible');
-        document.getElementById('user-badge').style.display = 'block';
-        setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 200);
-        loadUserInfo();
-      }, 2500);
-    }
-
-    function toggleProfile(show) { document.getElementById('profile-overlay').style.display = show ? 'block' : 'none'; }
-    function loadUserInfo() { document.getElementById('app-frame').contentWindow.postMessage({ type: 'GET_USER' }, '*'); }
-    function switchAccount() { window.open("https://accounts.google.com/AddSession", "_blank"); }
-    function logout() { window.location.href = "https://accounts.google.com/Logout"; }
-
-    window.addEventListener('message', function(e) {
-      const d = e.data;
-      if (d.type === 'USER_DATA') {
-        document.getElementById('user-badge').style.backgroundImage = `url('${d.photoUrl}')`;
-        document.getElementById('modal-img').src = d.photoUrl;
-        document.getElementById('modal-name').innerText = d.name;
-        document.getElementById('modal-email').innerText = d.email;
-      }
-      if (d.type === 'ADD_TO_QUEUE') {
-        uploadQueue.push(d);
-        updateQueueUI();
-      }
-      if (d.type === 'START_BULK_UPLOAD') {
-        processQueue(d.pId, d.cName);
-      }
-    });
-
-    function updateQueueUI() {
-      const qs = document.getElementById('queue-status');
-      qs.style.display = uploadQueue.length > 0 ? 'block' : 'none';
-      qs.innerText = `Mengupload ${uploadQueue.length} file...`;
-    }
-
-    async function processQueue(pId, cName) {
-      if (isUploading || uploadQueue.length === 0) return;
-      isUploading = true;
-      
-      const gas = document.getElementById('app-frame').contentWindow;
-      
-      // Ambil Token
-      const token = await new Promise(res => {
-        const h = (ev) => { if(ev.data.type === 'AUTH_TOKEN'){ window.removeEventListener('message', h); res(ev.data.token); }};
-        window.addEventListener('message', h);
-        gas.postMessage({type:'GET_AUTH'}, '*');
-      });
-
-      // Bikin/Ambil Folder
-      const folderId = await new Promise(res => {
-        const h = (ev) => { if(ev.data.type === 'FOLDER_READY'){ window.removeEventListener('message', h); res(ev.data.folderId); }};
-        window.addEventListener('message', h);
-        gas.postMessage({type:'CREATE_FOLDER', pId, cName}, '*');
-      });
-
-      while (uploadQueue.length > 0) {
-        const item = uploadQueue[0];
-        try {
-          await uploadToDrive(item, folderId, token);
-          uploadQueue.shift();
-          updateQueueUI();
-        } catch (err) { console.error(err); break; }
-      }
-      isUploading = false;
-      gas.postMessage({type: 'UPLOAD_DONE'}, '*');
-    }
-
-    function uploadToDrive(item, fId, token) {
-      return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
-        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-        const meta = { name: item.fileName, parents: [fId] };
-        const fd = new FormData();
-        fd.append('metadata', new Blob([JSON.stringify(meta)], {type: 'application/json'}));
-        fd.append('file', item.file);
-        xhr.onload = () => resolve();
-        xhr.onerror = () => reject();
-        xhr.send(fd);
-      });
+        setTimeout(() => {
+          document.getElementById('splash-screen').classList.add('hidden');
+        }, 150);
+      }, 2600); 
     }
   </script>
 </body>
