@@ -1,87 +1,57 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>GAS Dokumenter</title>
-  
   <style>
     * { box-sizing: border-box; }
-    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; font-family: sans-serif; }
     
+    /* SPLASH SCREEN TETEP SAMA */
     #splash-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      /* LINK BACKGROUND BARU - FORCE STRETCH */
       background-image: url('https://drive.google.com/thumbnail?id=1Ib42zmpyOBi0o35hBHGf0lkJ7KhH1X4b&sz=w1500');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 100% 100% !important; /* Stretch penuh ke semua sudut */
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      z-index: 9999;
+      background-repeat: no-repeat; background-position: center center; background-size: 100% 100% !important;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999;
     }
-
-    .brand-wrapper {
-      display: flex; align-items: center;
-      gap: 12px; z-index: 10; margin-top: -30px;
-    }
-
-    /* CONTAINER LOGO HATI - SPACING SUPER RAPAT (0.6:1) */
-    .logo-container {
-      position: relative;
-      width: 64px; height: 64px; 
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    #hati-logo {
-      width: 54px; /* Ukuran logo hati */
-      z-index: 2;
-    }
-
-    /* OUTLINE LINGKARAN - MEPET PARAH */
-    .svg-loader {
-      position: absolute;
-      width: 64px; height: 64px;
-      transform: rotate(-90deg);
-      z-index: 3;
-    }
-
-    .circle-draw {
-      fill: none;
-      stroke: #FFFFFF;
-      stroke-width: 3.2; 
-      stroke-linecap: round;
-      stroke-dasharray: 195; /* 2 * PI * 31 */
-      stroke-dashoffset: 195;
-      animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-      animation-delay: 0.3s;
-    }
-
+    .brand-wrapper { display: flex; align-items: center; gap: 12px; z-index: 10; margin-top: -30px; }
+    .logo-container { position: relative; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+    #hati-logo { width: 54px; z-index: 2; }
+    .svg-loader { position: absolute; width: 64px; height: 64px; transform: rotate(-90deg); z-index: 3; }
+    .circle-draw { fill: none; stroke: #FFFFFF; stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 195; stroke-dashoffset: 195; animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards; animation-delay: 0.3s; }
     @keyframes draw { to { stroke-dashoffset: 0; } }
+    #ruby-text { height: 54px; object-fit: contain; }
+    .footer-text { position: absolute; bottom: 65px; width: 85%; text-align: center; color: white; font-size: 8px; line-height: 1.5; opacity: 0.9; }
 
-    /* TULISAN RUBY - UKURAN SAMA DENGAN LOGO HATI */
-    #ruby-text { 
-      height: 54px; 
-      object-fit: contain; 
+    /* FITUR PROFIL & OVERLAY PUDAR */
+    .profile-badge {
+      position: fixed; top: 15px; right: 15px; width: 38px; height: 38px;
+      border-radius: 50%; border: 2px solid #fff; cursor: pointer; z-index: 10000;
+      background-size: cover; background-color: #F2C94C; display: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
-
-    /* COPYRIGHT TEXT - POSISI AMAN */
-    .footer-text {
-      position: absolute; 
-      bottom: 65px; 
-      width: 85%; 
-      text-align: center;
-      color: white; 
-      font-size: 8px; 
-      line-height: 1.5; 
-      opacity: 0.9;
-      font-family: sans-serif;
-      letter-spacing: 0.2px;
+    #profile-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 20000;
     }
+    #profile-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: white; width: 80%; max-width: 300px; border-radius: 24px;
+      padding: 30px 20px; text-align: center;
+    }
+    .modal-photo { width: 70px; height: 70px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #F2C94C; }
+    .btn-switch { background: #F2C94C; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 12px; margin: 10px 0; font-weight: bold; cursor: pointer; }
+    .btn-logout { background: #eee; color: #555; border: none; padding: 10px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
     #app-frame { position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%; opacity: 0; z-index: 1; }
     .visible { opacity: 1 !important; transition: opacity 0.5s ease; }
     .hidden { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
+    
+    #queue-label {
+      position: fixed; bottom: 15px; left: 15px; background: rgba(0,0,0,0.6);
+      color: white; padding: 5px 12px; border-radius: 20px; font-size: 10px; z-index: 5000; display: none;
+    }
   </style>
 </head>
 <body>
@@ -89,30 +59,112 @@
   <div id="splash-screen">
     <div class="brand-wrapper">
       <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 64 64">
-          <circle class="circle-draw" cx="32" cy="32" r="31" />
-        </svg>
+        <svg class="svg-loader" viewBox="0 0 64 64"><circle class="circle-draw" cx="32" cy="32" r="31" /></svg>
         <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
       </div>
       <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500">
     </div>
-    
-    <div class="footer-text">
-      Dibuat untuk mempermudah dan mempersingkat segalanya<br>
-      agar bisa mencari dan menemukan tujuan hidup yang berarti
+    <div class="footer-text">Dibuat untuk mempermudah dan mempersingkat segalanya...</div>
+  </div>
+
+  <div class="profile-badge" id="user-badge" onclick="toggleProfile(true)"></div>
+  <div id="profile-overlay" onclick="toggleProfile(false)">
+    <div id="profile-modal" onclick="event.stopPropagation()">
+      <img src="" id="modal-img" class="modal-photo">
+      <div id="modal-name" style="font-weight: bold; color: #333;">Loading...</div>
+      <div id="modal-email" style="font-size: 11px; color: #888; margin-bottom: 15px;">...</div>
+      <button class="btn-switch" onclick="switchAccount()">Switch Account</button>
+      <button class="btn-logout" onclick="logout()">Logout</button>
     </div>
   </div>
 
-  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="finishSplash()"></iframe>
+  <div id="queue-label">Sisa Antrean: 0</div>
+
+  <iframe id="app-frame" src="LINK_GAS_LO_DISINI" onload="finishSplash()"></iframe>
 
   <script>
+    let uploadQueue = [];
+    let isUploading = false;
+
     function finishSplash() {
       setTimeout(() => {
         document.getElementById('app-frame').classList.add('visible');
-        setTimeout(() => {
-          document.getElementById('splash-screen').classList.add('hidden');
-        }, 120);
+        document.getElementById('user-badge').style.display = 'block';
+        setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 120);
+        loadProfile();
       }, 2300); 
+    }
+
+    function toggleProfile(show) { document.getElementById('profile-overlay').style.display = show ? 'block' : 'none'; }
+
+    function loadProfile() {
+      const gas = document.getElementById('app-frame').contentWindow;
+      gas.google.script.run.withSuccessHandler(user => {
+        document.getElementById('user-badge').style.backgroundImage = `url('${user.photoUrl}')`;
+        document.getElementById('modal-img').src = user.photoUrl;
+        document.getElementById('modal-name').innerText = user.name;
+        document.getElementById('modal-email').innerText = user.email;
+      }).getUserData();
+    }
+
+    function switchAccount() {
+      window.location.href = `https://accounts.google.com/AddSession?continue=${encodeURIComponent(window.location.href)}`;
+    }
+
+    function logout() { window.location.href = "https://accounts.google.com/Logout"; }
+
+    // ANTRIAN BACKGROUND
+    window.addEventListener('message', function(e) {
+      if (e.data.type === 'ADD_TO_QUEUE') {
+        uploadQueue.push(e.data);
+        updateQueueUI();
+      }
+      if (e.data.type === 'START_BULK_UPLOAD') {
+        processQueue(e.data.parentFolderId, e.data.customName);
+      }
+    });
+
+    function updateQueueUI() {
+      const q = document.getElementById('queue-label');
+      q.style.display = uploadQueue.length > 0 ? 'block' : 'none';
+      q.innerText = `Sisa Antrean: ${uploadQueue.length}`;
+    }
+
+    async function processQueue(pId, cName) {
+      if (isUploading || uploadQueue.length === 0) return;
+      isUploading = true;
+      
+      await navigator.locks.request('upload_lock', async () => {
+        const gas = document.getElementById('app-frame').contentWindow;
+        const token = await new Promise(res => gas.google.script.run.withSuccessHandler(res).getAuthToken());
+        const targetFolderId = await new Promise(res => gas.google.script.run.withSuccessHandler(res).getOrCreateFolder(pId, cName));
+
+        while (uploadQueue.length > 0) {
+          const item = uploadQueue[0];
+          try {
+            await uploadFile(item, targetFolderId, token);
+            uploadQueue.shift();
+            updateQueueUI();
+          } catch (err) { break; }
+        }
+      });
+      isUploading = false;
+      document.getElementById('app-frame').contentWindow.postMessage({type:'REFRESH'}, '*');
+    }
+
+    function uploadFile(item, fId, token) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+        const meta = { name: item.fileName, parents: [fId] };
+        const fd = new FormData();
+        fd.append('metadata', new Blob([JSON.stringify(meta)], {type: 'application/json'}));
+        fd.append('file', item.file);
+        xhr.onload = () => resolve();
+        xhr.onerror = () => reject();
+        xhr.send(fd);
+      });
     }
   </script>
 </body>
