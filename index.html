@@ -23,30 +23,35 @@
       transition: opacity 0.5s ease, visibility 0.5s;
     }
 
-    /* CONTAINER LOGO UTAMA */
-    .content-wrapper {
+    /* CONTAINER UTAMA LOGO & TEKS (SATU BARIS) */
+    .brand-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      align-items: center; /* Sejajarkan tengah secara vertikal */
+      gap: 15px; /* Jarak antara lingkaran dan teks */
       margin-top: -50px; /* Angkat sedikit ke atas agar visual balance */
     }
 
+    /* CONTAINER LINGKARAN & OUTLINE */
     .logo-container {
       position: relative;
-      width: 180px; height: 180px; 
+      /* Tinggi lingkaran progresif + outline sama dengan tinggi teks 'RUBY' */
+      width: 60px; height: 60px; 
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* LOGO HATI (DI TENAH) */
+    /* LOGO HATI (DI TENGAH) DENGAN PADDING UNTUK SPACING 0.6:1 */
     #logo-dasar {
-      width: 75px; height: 75px; 
+      width: 100%; height: 100%; 
+      box-sizing: border-box;
+      /* Jarak antara outline dan ikon hati: 0.6 x ketebalan outline (6) = 3.6px. */
+      padding: 4px; 
       z-index: 2;
     }
 
-    /* SVG LOADER (LINGKARAN PUTIH) */
+    /* SVG LOADER (LINGKARAN PUTIH, TINGGI SAMA DENGAN TEXT RUBY) */
     .svg-loader {
       position: absolute;
-      width: 130px; height: 130px; 
+      width: 100%; height: 100%; 
       transform: rotate(-90deg);
       z-index: 3;
     }
@@ -54,23 +59,50 @@
     .circle-draw {
       fill: none;
       stroke: #FFFFFF;
-      stroke-width: 5;
+      stroke-width: 6; /* OUTLINE LEBIH TEBEL SESUAI PERMINTAAN */
       stroke-linecap: round;
-      stroke-dasharray: 440; /* Keliling lingkaran r=70 */
-      stroke-dashoffset: 440;
+      stroke-dasharray: 188; /* Keliling lingkaran r=30 */
+      stroke-dashoffset: 188;
       animation: draw 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
     @keyframes draw { to { stroke-dashoffset: 0; } }
 
-    /* TEKS RUBY INDONESIA */
-    .brand-logo {
-      width: 180px; 
-      margin-top: 10px;
-      object-fit: contain;
+    /* CONTAINER TEKS SEBELAH LOGO (RATU KIRI) */
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      color: white;
     }
 
-    /* TEKS FILOSOFIS (Gaya Copyright Apps) */
+    /* TEKS RUBY (UKURAN SAMA TINGGI DENGAN OUTLINE LINGKARAN) */
+    .ruby-text {
+      font-size: 40px; 
+      font-weight: 800;
+      line-height: 1; /* Biar tinggi font bener-bener jadi tinggi elemen */
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* TEKS INDONESIA & KIDS DEVELOPMENT CENTER (DIBAWAH RUBY) */
+    .sub-brand-text {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 2px 0 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kids-center-text {
+      font-size: 8px;
+      font-weight: 400;
+      margin: 1px 0 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    /* TEKS FILOSOFIS (Gaya Copyright Apps Profesional) */
     .footer-text {
       position: absolute; bottom: 50px; width: 85%; text-align: center;
       color: white; font-size: 10px; line-height: 1.5; letter-spacing: 0.3px;
@@ -90,14 +122,21 @@
 <body>
 
   <div id="splash-screen">
-    <div class="content-wrapper">
+    <div class="brand-container">
+      
       <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 160 160">
-          <circle class="circle-draw" cx="80" cy="80" r="70" />
+        <svg class="svg-loader" viewBox="0 0 70 70">
+          <circle class="circle-draw" cx="35" cy="35" r="30" />
         </svg>
         <img id="logo-dasar" src="https://lh3.googleusercontent.com/d/1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J">
       </div>
-      <img class="brand-logo" src="https://lh3.googleusercontent.com/d/1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6">
+
+      <div class="text-container">
+        <h1 class="ruby-text">RUBY</h1>
+        <p class="sub-brand-text">INDONESIA</p>
+        <p class="kids-center-text">KIDS DEVELOPMENT CENTER</p>
+      </div>
+
     </div>
     
     <div class="footer-text">
