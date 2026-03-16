@@ -6,52 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>GAS Dokumenter</title>
   
-  <link rel="icon" href="https://drive.google.com/thumbnail?id=1f6yt3zIhgOKqw9S1NK1BEefHTAYoVV46&sz=w500">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #F2C94C; }
+    * { box-sizing: border-box; }
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #F2C94C; }
     
-    /* BACKGROUND FULL STRETCH */
     #splash-screen {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: url('https://lh3.googleusercontent.com/d/1Ib42zmpyOBi0o35hBHGf0lkJ7KhH1X4b') no-repeat center center;
-      background-size: 100% 100%; /* Stretch bebas memenuhi layar */
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      /* LINK BACKGROUND BARU - FORCE STRETCH */
+      background-image: url('https://drive.google.com/thumbnail?id=1Ib42zmpyOBi0o35hBHGf0lkJ7KhH1X4b&sz=w1500');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% 100% !important; /* Stretch penuh ke semua sudut */
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s;
     }
 
-    /* CONTAINER UTAMA LOGO & TEKS (SATU BARIS) */
-    .brand-container {
-      display: flex;
-      align-items: center; /* Sejajarkan tengah secara vertikal */
-      gap: 15px; /* Jarak antara lingkaran dan teks */
-      margin-top: -50px; /* Angkat sedikit ke atas agar visual balance */
+    .brand-wrapper {
+      display: flex; align-items: center;
+      gap: 12px; z-index: 10; margin-top: -30px;
     }
 
-    /* CONTAINER LINGKARAN & OUTLINE */
+    /* CONTAINER LOGO HATI - SPACING SUPER RAPAT (0.6:1) */
     .logo-container {
       position: relative;
-      /* Tinggi lingkaran progresif + outline sama dengan tinggi teks 'RUBY' */
-      width: 60px; height: 60px; 
+      width: 64px; height: 64px; 
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* LOGO HATI (DI TENGAH) DENGAN PADDING UNTUK SPACING 0.6:1 */
-    #logo-dasar {
-      width: 100%; height: 100%; 
-      box-sizing: border-box;
-      /* Jarak antara outline dan ikon hati: 0.6 x ketebalan outline (6) = 3.6px. */
-      padding: 4px; 
+    #hati-logo {
+      width: 54px; /* Ukuran logo hati */
       z-index: 2;
     }
 
-    /* SVG LOADER (LINGKARAN PUTIH, TINGGI SAMA DENGAN TEXT RUBY) */
+    /* OUTLINE LINGKARAN - MEPET PARAH */
     .svg-loader {
       position: absolute;
-      width: 100%; height: 100%; 
+      width: 64px; height: 64px;
       transform: rotate(-90deg);
       z-index: 3;
     }
@@ -59,84 +49,52 @@
     .circle-draw {
       fill: none;
       stroke: #FFFFFF;
-      stroke-width: 6; /* OUTLINE LEBIH TEBEL SESUAI PERMINTAAN */
+      stroke-width: 3.2; 
       stroke-linecap: round;
-      stroke-dasharray: 188; /* Keliling lingkaran r=30 */
-      stroke-dashoffset: 188;
-      animation: draw 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      stroke-dasharray: 195; /* 2 * PI * 31 */
+      stroke-dashoffset: 195;
+      animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      animation-delay: 0.3s;
     }
 
     @keyframes draw { to { stroke-dashoffset: 0; } }
 
-    /* CONTAINER TEKS SEBELAH LOGO (RATU KIRI) */
-    .text-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      color: white;
+    /* TULISAN RUBY - UKURAN SAMA DENGAN LOGO HATI */
+    #ruby-text { 
+      height: 54px; 
+      object-fit: contain; 
     }
 
-    /* TEKS RUBY (UKURAN SAMA TINGGI DENGAN OUTLINE LINGKARAN) */
-    .ruby-text {
-      font-size: 40px; 
-      font-weight: 800;
-      line-height: 1; /* Biar tinggi font bener-bener jadi tinggi elemen */
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* TEKS INDONESIA & KIDS DEVELOPMENT CENTER (DIBAWAH RUBY) */
-    .sub-brand-text {
-      font-size: 14px;
-      font-weight: 600;
-      margin: 2px 0 0 0;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .kids-center-text {
-      font-size: 8px;
-      font-weight: 400;
-      margin: 1px 0 0 0;
-      text-transform: uppercase;
+    /* COPYRIGHT TEXT - POSISI AMAN */
+    .footer-text {
+      position: absolute; 
+      bottom: 65px; 
+      width: 85%; 
+      text-align: center;
+      color: white; 
+      font-size: 8px; 
+      line-height: 1.5; 
+      opacity: 0.9;
+      font-family: sans-serif;
       letter-spacing: 0.2px;
     }
 
-    /* TEKS FILOSOFIS (Gaya Copyright Apps Profesional) */
-    .footer-text {
-      position: absolute; bottom: 50px; width: 85%; text-align: center;
-      color: white; font-size: 10px; line-height: 1.5; letter-spacing: 0.3px;
-      opacity: 0.8;
-      font-weight: 400;
-    }
-
-    #app-frame {
-      position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%;
-      opacity: 0; transition: opacity 0.5s ease; z-index: 1;
-    }
-
-    .visible { opacity: 1 !important; }
-    .hidden { opacity: 0; visibility: hidden; }
+    #app-frame { position: fixed; top: 0; left: 0; border: none; width: 100%; height: 100%; opacity: 0; z-index: 1; }
+    .visible { opacity: 1 !important; transition: opacity 0.5s ease; }
+    .hidden { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
   </style>
 </head>
 <body>
 
   <div id="splash-screen">
-    <div class="brand-container">
-      
+    <div class="brand-wrapper">
       <div class="logo-container">
-        <svg class="svg-loader" viewBox="0 0 70 70">
-          <circle class="circle-draw" cx="35" cy="35" r="30" />
+        <svg class="svg-loader" viewBox="0 0 64 64">
+          <circle class="circle-draw" cx="32" cy="32" r="31" />
         </svg>
-        <img id="logo-dasar" src="https://lh3.googleusercontent.com/d/1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J">
+        <img id="hati-logo" src="https://drive.google.com/thumbnail?id=1p3ucC2P6VUqle4izxSQUw8sZMAwsk_9J&sz=w500">
       </div>
-
-      <div class="text-container">
-        <h1 class="ruby-text">RUBY</h1>
-        <p class="sub-brand-text">INDONESIA</p>
-        <p class="kids-center-text">KIDS DEVELOPMENT CENTER</p>
-      </div>
-
+      <img id="ruby-text" src="https://drive.google.com/thumbnail?id=1Qv9WabWHfZJZ8KH2-1qnseAA_4RERvB6&sz=w500">
     </div>
     
     <div class="footer-text">
@@ -145,17 +103,16 @@
     </div>
   </div>
 
-  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="initApp()"></iframe>
+  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbwXZzLSN7UhOuuYP8HlmMRlFA_RVHEPexosytqmVuMoWBAE8ruZ9eddinJ7GnIlh8D4Jw/exec" onload="finishSplash()"></iframe>
 
   <script>
-    function initApp() {
-      // Durasi total 1.5 detik (1500ms)
+    function finishSplash() {
       setTimeout(() => {
         document.getElementById('app-frame').classList.add('visible');
         setTimeout(() => {
           document.getElementById('splash-screen').classList.add('hidden');
-        }, 200);
-      }, 1500); 
+        }, 120);
+      }, 2300); 
     }
   </script>
 </body>
